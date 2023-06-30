@@ -1,0 +1,38 @@
+{% extends "plantillaBase.html" %}
+{# comentario: hereda de la plantilla base #}
+{% block tituloPestana %} Administración Cliente{% endblock %}
+{% block titulo %} Cliente {% endblock %}
+{% block mensaje %}
+    {% if error %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+    {% if exito %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ exito }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block contenido %}
+    <form method="POST" action="{% url 'clienteForm' %}">
+        {% csrf_token %} 
+        <br>
+        <center>
+        <table>
+        {{ form.as_table }}
+        <table>
+        </center>
+        <div class="row">
+            <div class="col-2 offset-2">Opciones</div>
+            <div class="col-5">
+                <input type="submit" value="Grabar" name="Grabar" class="btn btn-danger">
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block listado %}
+{% endblock %}

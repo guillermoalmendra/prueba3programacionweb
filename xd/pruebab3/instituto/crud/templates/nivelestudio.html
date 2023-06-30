@@ -1,0 +1,65 @@
+{% extends "plantillaBase.html" %}
+{% block tituloPestana %} agregar nivel de estudio{% endblock %}
+{% block titulo %} agregar tipo de nivel de estudio {% endblock %}
+{% block mensaje %}
+    {% if error %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+    {% if exito %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ exito }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    {% endif %}
+{% endblock %}
+{% block contenido %}
+    <form method="POST" action="{% url 'nivelestudio' %}">
+        {% csrf_token %} 
+        <div class="row">
+            <div class="col-2 offset-2">Id</div>
+            <div class="col-5"><input type="text" name="id" value="{{ item.idNivel}}" class="form-control"></div>
+        </div>
+        <div class="row">
+            <div class="col-2 offset-2">Nombre</div>
+            <div class="col-5"><input type="text" name="nombre" value="{{ item.nombre }}" class="form-control"></div>
+        </div>
+        <div class="row">
+            <div class="col-2 offset-2">Activo</div>
+            <div class="col-5"><input type="checkbox" name="activo" {{item.activo |yesno:"checked,''"}} class="form-check-input"></div>
+        </div>
+        <br>
+        
+        <div class="row">
+            <div class="col-2 offset-2">Opciones</div>
+            <div class="col-5">
+                <input type="submit" value="Grabar" name="Grabar" class="btn btn-danger">
+                <input type="submit" value="Listar" name="Listar" class="btn btn-warning">
+                <input type="submit" value="Buscar" name="Buscar" class="btn btn-success">
+                <input type="submit" value="Eliminar" name="Eliminar" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block listado %}
+    {% if listado %}
+        <table class="table table-responsive table-striped table-bordered">
+            <tr>
+                <th>id</th>
+                <th>Nombre</th>
+                <th>Activo</th>
+            </tr>
+        {% for objeto in listado %}
+            <tr>
+                <td>{{ objeto.idNivel }}
+                <td>{{ objeto.nombre | capfirst }}
+                <td>{{ objeto.activo }}
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}
